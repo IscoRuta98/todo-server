@@ -1,31 +1,32 @@
 name: Python Linting
 
-on:
-  pull_request:
-    branches:
+on: # Triggers for the workflow
+  pull_request: # Trigger on pull requests
+    branches: # Specify branches to trigger on
       - main
 
-jobs:
-  lint:
-    runs-on: ubuntu-latest
+jobs: # Define jobs to run in the workflow
+  Lint-and-Format-Checking: # Job for linting and Format checking
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
-    steps:
-      - uses: actions/checkout@v4
+    steps: # Define steps to execute in the job
+      - uses: actions/checkout@v4 # Check out the repository code 
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up Python # Set up Python environment
+        uses: actions/setup-python@v5 # Use the setup-python action
         with:
-          python-version: '3.11'  # Adjust to your Python version
+          python-version: '3.11'  # Specify the Python version to use
 
-      - name: Install dependencies
-        run: |
+      - name: Install dependencies # Install dependencies
+        run: | # Run the following commands
           python -m pip install --upgrade pip
           pip install black flake8
 
-      - name: Check formatting with Black
+      - name: Check formatting with Black # Check code formatting
         run: |
           black --check .
 
-      - name: Check linting with Flake8
+      - name: Check linting with Flake8 # Check code linting
         run: |
           flake8 .
+

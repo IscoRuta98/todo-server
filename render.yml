@@ -1,3 +1,13 @@
+# This YAML file is used for configuration purposes.
+# YAML is a human-readable data serialization format.
+# It is often used to define settings, parameters, or structured data for applications.
+
+# Each key-value pair in this file represents a specific configuration setting.
+# Keys are the names of the settings, and values are their corresponding values.
+
+# YAML files are commonly used in various programming contexts, such as defining CI/CD pipelines,
+# application settings, or infrastructure as code.
+
 services:
   # A Docker web service
   - type: web
