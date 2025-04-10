@@ -101,3 +101,15 @@ def delete_todo(todo_id: int, session: SessionDep):
         raise HTTPException(status_code=404, detail="Todo not found")
     session.delete(todo)
     return None
+
+# PUT /todos/{todo_id}/toggle-completed
+@app.put("/todos/{todo_id}/toggle-completed", response_model=TodoResponse)
+def toggle_todo_completed(todo_id: int, session: SessionDep):
+    todo = session.get(Todo, todo_id)
+    if not todo:
+        raise HTTPException(status_code=404, detail="Todo not found")
+    todo.completed = not todo.completed
+    session.add(todo)
+    session.commit()
+    session.refresh(todo)
+    return todo
