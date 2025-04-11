@@ -101,3 +101,16 @@ def delete_todo(todo_id: int, session: SessionDep):
         raise HTTPException(status_code=404, detail="Todo not found")
     session.delete(todo)
     return None
+
+# PUT /todos/{todo_id}
+@app.put("/todos/{todo_id}", response_model=TodoResponse, status_code=status.HTTP_200_OK)
+def replace_todo(todo_id: int, todo: CreateTodo, session: SessionDep):
+    todo_db = session.get(Todo, todo_id)
+    if not todo_db:
+        raise HTTPException(status_code=404, detail="Todo not found")
+    todo_data = todo.model_dump()
+    todo_db.sqlmodel_update(todo_data)
+    session.add(todo_db)
+    session.commit()
+    session.refresh(todo_db)
+    return todo_db
