@@ -102,8 +102,11 @@ def delete_todo(todo_id: int, session: SessionDep):
     session.delete(todo)
     return None
 
+
 # PUT /todos/{todo_id}
-@app.put("/todos/{todo_id}", response_model=TodoResponse, status_code=status.HTTP_200_OK)
+@app.put(
+    "/todos/{todo_id}", response_model=TodoResponse, status_code=status.HTTP_200_OK
+)
 def replace_todo(todo_id: int, todo: CreateTodo, session: SessionDep):
     todo_db = session.get(Todo, todo_id)
     if not todo_db:
